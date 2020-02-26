@@ -1,0 +1,68 @@
+﻿@model Onboarding_CorePort.ViewModels.FeedbackViewModel
+
+<div class="feedbackDiv flex-column">
+    <a class="btn btn-primary feedback-accordion" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        <i class="far fa-comment-dots" style="color:white; background-color:none;">&nbsp;&nbsp;Feedback</i>
+    </a>
+
+    <div class="collapse thumbs-up-down pt-5" id="collapseExample">
+        <input type="hidden" class="setDataPageID" value="OnboardIndex" id="setDataPageID" name="PageName" />
+
+        <a name="like" class="far fa-thumbs-up fa-2x mr-2" onclick="postFeedback(1); openForm();" data-toggle="collapse" href="#collapseExample" aria-controls="collapseExample"></a>
+        <a name="dislike" class="far fa-thumbs-down fa-2x" onclick="postFeedback(0); openForm();" data-toggle="collapse" href="#collapseExample" aria-controls="collapseExample"></a>
+    </div>
+</div>
+
+<div class="form-popup " id="myForm">
+
+    @using (Html.BeginForm("FeedbackSubmit", "Home", FormMethod.Post, new { @viewModel = this.Model, @class = "form-container" }))
+    {
+
+
+        <button type="button" class="close float-left" onclick="closeForm()"><span style="color: #1999CA;" class="fas fa-times"></span></button>
+        <div class="body-form-content">
+            <h2><img style="width: 91px; height: 22px;" src="~/Content/image/logo-black.png" /></h2>
+            <div>
+                @*@Html.LabelFor(model => model.UserFeedback.CategoryID, htmlAttributes: new { @class = "commentTextCss" })*@
+                <label class="commentTextCss">What category would you like to give website feedback on?</label>
+                <br />
+                @Html.DropDownListFor(model => model.UserFeedback.CategoryID, new SelectList(Model.Categories, "CategoryID", "CategoryName"), "Choose a category", htmlAttributes: new { @class = "dropdown feedback-dropdown" })
+            </div>
+            <br />
+            <div>
+                @*@Html.LabelFor(model => model.UserFeedback.LevelSatisfiedID, htmlAttributes: new { @class = "commentTextCss" })*@
+                <label class="commentTextCss">Rate your level of satisfaction with this web page today:</label>
+                <br />
+                <div class="custom-control-inline radioLabelCss">
+                    @Html.RadioButtonFor(model => model.UserFeedback.LevelSatisfiedID, 1, htmlAttributes: new { @class = "form-inline" })
+                    &nbsp; Satisfied
+                </div>
+                <br />
+                <div class="custom-control-inline radioLabelCss">
+                    @Html.RadioButtonFor(model => model.UserFeedback.LevelSatisfiedID, 2, htmlAttributes: new { @class = "form-inline" })
+                    &nbsp; Moderately Satisfied
+                </div>
+                <br />
+                <div class="custom-control-inline radioLabelCss">
+                    @Html.RadioButtonFor(model => model.UserFeedback.LevelSatisfiedID, 3, htmlAttributes: new { @class = "form-inline" })
+                    &nbsp; Moderately Dissatisfied
+                </div>
+                <br />
+                <div class="custom-control-inline radioLabelCss">
+                    @Html.RadioButtonFor(model => model.UserFeedback.LevelSatisfiedID, 4, htmlAttributes: new { @class = "form-inline" })
+                    &nbsp; Dissatisfied
+                </div>
+            </div>
+            <br />
+            <div>
+                @*@Html.LabelFor(model => model.UserFeedback.Comments, htmlAttributes: new { @class = "commentTextCss" })*@
+                <label class="commentTextCss">Comments:</label>
+                @Html.TextAreaFor(model => model.UserFeedback.Comments, htmlAttributes: new { @class = "textBoxFormatting", @placeholder = "To protect your privacy, do not post any personal information such as your email address, phone number, product key, password or credit card number.", rows = "3" })
+
+            </div><label class="pl-3 maxCharactersCss">Max 400 characters</label>
+            <br />
+
+            <button type="submit" id="submitUserFeedbackForm" class="btn form-submit-button"><strong>SUBMIT</strong>&nbsp;<span class="far fa-paper-plane submit-span"></span></button>
+        </div>
+    }
+</div>

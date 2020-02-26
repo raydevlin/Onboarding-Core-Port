@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Onboarding_CorePort</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:700,800" rel="stylesheet">
+    <link href="https://use.typekit.net/rbs6pht.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+
+    <!-- Theme included stylesheets -->
+    <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/default.min.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-md fixed-top" style="background-color:#003b58">
+        <a class="navbar-brand" href=@Url.Action("Index", "Home")>
+
+            <img src="~/Content/image/logoDark.png" alt="" class="nav-image" />
+        </a>
+        <h3 class="navOnboarding">
+            <span>Onboarding</span>@if (ViewBag.Name != null)
+            {<small> : Welcome @ViewBag.Name</small>}
+        </h3>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                
+            </ul>
+        </div>
+        @Html.Partial("_LoginPartial")
+        <div id="jsNotifier"></div>
+
+    </nav>
+    <div id="canvas" class="col-md-12 ">
+        @RenderBody()
+
+        @await Component.InvokeAsync("FeedbackForm")
+
+        <hr />
+        <footer>
+            <p style="padding-left: 1em;">@DateTime.Now.Year - DAERA Onboarding Application</p>
+        </footer>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="~/js/HtmlSanitizer.js"></script>
+    <script src="~/js/popper.js"></script>
+    <script src="~/js/popper-utils.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

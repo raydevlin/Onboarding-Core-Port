@@ -1,0 +1,28 @@
+﻿
+    <ul class="nav navbar-right">
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <li style="margin-right: 10px">
+                @Html.ActionLink("Neueda Info", "Index", "Information", routeValues: null, htmlAttributes: new { @class = "nav-link btn" })
+            </li>
+            if (Model.IsAdmin)
+            {
+
+                <li style="margin-right: 10px">
+                    @Html.ActionLink("Admin", "Index", "Admin", routeValues: null, htmlAttributes: new { @class = "nav-link btn" })
+                </li>
+            }
+            <li>
+                @Html.ActionLink("Log Out", "SignOut", "Account", routeValues: null, htmlAttributes: new { @class = "nav-link btn" })
+            </li>
+
+        }
+        else
+        {
+
+            <li>@Html.ActionLink("Log In", "SignIn", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link btn" })</li>
+
+        }
+        }
+    </ul>
